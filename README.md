@@ -1,49 +1,57 @@
-# deno_starter
+# deno_x256
 
-[![tag](https://img.shields.io/github/release/denomod/deno_starter)](https://github.com/denomod/deno_starter/releases)
-[![Build Status](https://github.com/denomod/deno_starter/workflows/ci/badge.svg?branch=master)](https://github.com/denomod/deno_starter/actions)
-[![license](https://img.shields.io/github/license/denomod/deno_starter)](https://github.com/denomod/deno_starter/blob/master/LICENSE)
-[![](https://img.shields.io/badge/deno-v1.2-green.svg)](https://github.com/denoland/deno)
+[![tag](https://img.shields.io/github/release/justjavac/deno_x256)](https://github.com/justjavac/deno_x256/releases)
+[![Build Status](https://github.com/justjavac/deno_x256/workflows/ci/badge.svg?branch=master)](https://github.com/justjavac/deno_x256/actions)
+[![license](https://img.shields.io/github/license/justjavac/deno_x256)](https://github.com/justjavac/deno_x256/blob/master/LICENSE)
 
-Quickly start a Deno module.
+Find the nearest [xterm 256 color](http://www.frexx.de/xterm-256-notes/) index for an rgb.
 
-## 🧐 What's inside?
+colors data source https://cdn.jsdelivr.net/gh/substack/node-x256@master/colors.json
 
-A quick look at the files and directories you'll see in a Deno project.
+## Usage
 
-    .
-    ├─ .github
-    │   └─ workflows
-    │       └─ ci.yml
-    ├─ .vscode
-    ├─ .vscode
-    │   ├─ extensions.json
-    │   └─ settings.json
-    ├─ .gitattributes
-    ├─ .gitignore
-    ├─ CHANGELOG.md
-    ├─ LICENSE
-    ├─ mod_test.ts
-    ├─ mod.ts
-    └─ README.md
+All xterm 256 colors:
 
-1.  **`.github\workflows\ci.yml`**: GitHub Actions.
+```ts
+import color from "https://deno.land/x/x256/color.ts";
 
-1.  **`.vscode\extensions.json`**: Workspace recommended extensions for Deno Developers.
+console.log(color)
+```
 
-1.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+output:
 
-1.  **`CHANGELOG.md`**: This file contains a curated, chronologically ordered list of notable changes for each version of a project. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-    and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+```ts
+[
+  "000000",
+  "800000",
+  "008000",
+  "808000",
+  "000080",
+  "800080",
+  ...
+  ...
+```
 
-1.  **`LICENSE`**: Deno is licensed under the MIT license.
+Get the nearest xterm 256 color code for rgb inputs.:
 
-1.  **`mod.ts`**: Deno's default entry point. The filename mod.ts follows Rust’s convention, is shorter than index.ts, and doesn’t come with any preconceived notions about how it might work. Deno does not treat "index.js" or "index.ts" in a special way. By using these filenames, it suggests that they can be left out of the module specifier when they cannot. This is confusing.
+```ts
+import x256 from "https://deno.land/x/x256/mod.ts";
 
-1.  **`mod_test.ts`**: Each module should come with its test as a sibling with the name `modulename_test.ts`. For example the module `foo.ts` should come with its sibling `foo_test.ts`.
+const c = x256(220,40,150);
+console.log(c); // 162
+```
 
-1.  **`README.md`**: A text file containing useful reference information about your project.
+Use raw ansi escape codes:
+
+Check if the language code is valid:
+
+```ts
+import x256 from "https://deno.land/x/x256/mod.ts";
+
+const c = x256(220,40,150);
+console.log(`\x1b[38;5;${c}mBEEEEEP`);
+```
 
 ### License
 
-[deno_starter](https://github.com/denomod/deno_starter) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.
+[deno_x256](https://github.com/justjavac/deno_x256) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.
