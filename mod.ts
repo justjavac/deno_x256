@@ -2,26 +2,27 @@ import colors from "./colors.ts";
 
 export type RGB = [number, number, number];
 
-export default function x265(r: number, g: number, b: number): number {
+export default function x256(r: number, g: number, b: number): number {
   const c: RGB = isRGB(r) ? r : [r, g, b];
-  let best = null;
+  let best = {
+    index: -1,
+    distance: (255 ** 2) * 3 + 1,
+  };
 
   for (let i = 0; i < colors.length; i++) {
-    const d = distance(hex2rgb(colors[i]), c);
-    if (!best || d <= best.distance) {
+    const d = distanceSquare(hex2rgb(colors[i]), c);
+    if (d <= best.distance) {
       best = { distance: d, index: i };
     }
   }
 
-  return best!.index;
+  return best.index;
 }
 
-export function distance(a: RGB, b: RGB): number {
-  return Math.sqrt(
-    Math.pow(a[0] - b[0], 2) +
-      Math.pow(a[1] - b[1], 2) +
-      Math.pow(a[2] - b[2], 2),
-  );
+export function distanceSquare(a: RGB, b: RGB): number {
+  return Math.pow(a[0] - b[0], 2) +
+    Math.pow(a[1] - b[1], 2) +
+    Math.pow(a[2] - b[2], 2);
 }
 
 export function isRGB(x: unknown): x is RGB {
