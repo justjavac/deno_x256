@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.64.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.68.0/testing/asserts.ts";
 
 import x265 from "./mod.ts";
 
